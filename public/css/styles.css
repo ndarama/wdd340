@@ -2,7 +2,7 @@
 
 /* 1) Variables & Reset */
 :root {
-  --brand: #00bfae;
+  --brand: #990011;
   --text: #222;
   --bg: #fff;
   --nav-bg: #333;
@@ -63,7 +63,7 @@ header {
   color: var(--text);
 }
 
-/* ── Navigation (updated) ── */
+/* Navigation  */
 nav {
   background: var(--nav-bg);
   box-shadow: inset 0 -4px 0 var(--brand); /* brand accent underline */
