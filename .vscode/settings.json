@@ -11,6 +11,30 @@
             "driver": "PostgreSQL",
             "name": "cse340_connection",
             "connectString": "postgresql://cse340_db_1rob_user:6RXuwXzizXds4KnPdBr1usz8dPekigzB@dpg-d0h39ma4d50c738dngkg-a.oregon-postgres.render.com/cse340_db_1rob"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "cse340_connection",
+            "connectString": "postgresql://cse340_ndarama1_user:KzmGLyPuK6yBkSQReXnvUKeOJ99XRLP0@dpg-d0ssjjjipnbc73e0rfa0-a.oregon-postgres.render.com/cse340_ndarama1"
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "connectString": "postgresql://cse340_ndarama2_user:zQJ5YTTw0qZngmI1Yz8qSFxMd3HtghVx@dpg-d0st7c49c44c73fgv7k0-a.oregon-postgres.render.com/cse340_ndarama2",
+            "name": "ndarama_connetion"
         }
     ]
 }
