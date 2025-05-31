@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <title><%= classification.charAt(0).toUpperCase() + classification.slice(1) %> Inventory</title>
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <% include ../partials/navigation %>
+    <main>
+      <%- html %>
+    </main>
+    <% include ../partials/footer %>
+  </body>
+</html>

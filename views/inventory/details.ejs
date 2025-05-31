@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+    <title><%= vehicle.make %> <%= vehicle.model %></title>
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <% include ../partials/navigation %>
+    <main>
+      <!-- Inject prebuilt HTML for detail -->
+      <%- html %>
+    </main>
+    <% include ../partials/footer %>
+  </body>
+</html>
