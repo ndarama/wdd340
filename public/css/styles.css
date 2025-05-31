@@ -279,11 +279,43 @@ footer {
   footer     { grid-area: footer; }
 }
 
-.vehicle-detail { display: flex; flex-direction: column; gap: 1rem; padding: 1rem; }
-.detail-image img { width: 100%; height: auto; border-radius: 4px; }
-.detail-info h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-.detail-info h2 { font-size: 1.5rem; margin-bottom: 1rem; }
-@media (min-width: 768px) {
-  .vehicle-detail { flex-direction: row; }
-  .detail-image, .detail-info { flex: 1; }
+.vehicle-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.vehicle-detail img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-info {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 0 1rem;
+}
+
+.vehicle-info h2 {
+  color: var(--brand);
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .vehicle-detail {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .vehicle-image {
+    flex: 1;
+  }
+
+  .vehicle-info {
+    flex: 1;
+    padding-left: 2rem;
+  }
 }

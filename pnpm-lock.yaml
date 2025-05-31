@@ -21,7 +21,7 @@ importers:
         specifier: ^2.5.1
         version: 2.5.1
       pg:
-        specifier: ^8.8.0
+        specifier: ^8.15.6
         version: 8.15.6
     devDependencies:
       nodemon:

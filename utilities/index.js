@@ -1,47 +1,41 @@
-function buildClassificationHTML(vehicles, classification) {
-  const title = classification.charAt(0).toUpperCase() + classification.slice(1);
-  const items = vehicles
-    .map(v => `
-      <div class="item-card">
-        <a href="/detail/${v.inv_id}">
-          <img src="${v.thumbnail}" alt="${v.make} ${v.model}" loading="lazy">
-          <p>${v.make} ${v.model}</p>
-        </a>
-      </div>
-    `)
-    .join('');
-  return `
-  <section class="classification-view">
-    <h1>${title}</h1>
-    <div class="item-grid">
-      ${items}
-    </div>
-  </section>
-  `;
+const invModel = require('../models/inventory-model');
+
+async function getNav() {
+  const data = await invModel.getClassifications();
+  let nav = '<ul>';
+  nav += `<li><a href="/" title="Home page">Home</a></li>`;
+  data.forEach(row => {
+    nav += `<li><a href="/inv/classification/${row.classification_name}" title="View our ${row.classification_name} vehicles">${row.classification_name}</a></li>`;
+  });
+  nav += '</ul>';
+  return nav;
 }
 
-// Build detail HTML (unchanged)
 function buildVehicleDetailHTML(vehicle) {
-  const { make, model, year, price, mileage, description, fullsize } = vehicle;
-  const fmtCurrency = num => num.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-  const fmtNumber = num => num.toLocaleString('en-US');
+  const price = Number(vehicle.inv_price).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
+
+  const miles = Number(vehicle.inv_miles).toLocaleString();
 
   return `
-  <section class="vehicle-detail">
-    <div class="detail-image">
-      <img src="${fullsize}" alt="${make} ${model}" loading="lazy">
+    <div class="vehicle-detail">
+      <div class="vehicle-image">
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" loading="lazy">
+      </div>
+      <div class="vehicle-info">
+        <h2>${vehicle.inv_make} ${vehicle.inv_model} (${vehicle.inv_year})</h2>
+        <p><strong>Price:</strong> ${price}</p>
+        <p><strong>Mileage:</strong> ${miles} miles</p>
+        <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+      </div>
     </div>
-    <div class="detail-info">
-      <h1>${make} ${model}</h1>
-      <h2>${year} — ${fmtCurrency(price)}</h2>
-      <p><strong>Mileage:</strong> ${fmtNumber(mileage)} miles</p>
-      <p>${description}</p>
-    </div>
-  </section>
   `;
 }
 
 module.exports = {
-  buildClassificationHTML,
-  buildVehicleDetailHTML,
+  getNav,
+  buildVehicleDetailHTML
 };
