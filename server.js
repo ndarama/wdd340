@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', indexRouter);
 app.use('/', staticRouter);
-app.use('/inv', inventoryRouter); // ✅ Mount inventory routes under /inv
+app.use('/inv', inventoryRouter); 
 
 // 404 handler
 app.use((req, res) => {

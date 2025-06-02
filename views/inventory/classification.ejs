@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <% include ../partials/head %>
-    <title><%= classification.charAt(0).toUpperCase() + classification.slice(1) %> Inventory</title>
-  </head>
-  <body>
-    <% include ../partials/header %>
-    <% include ../partials/navigation %>
-    <main>
-      <h1><%= title %> Vehicles</h1>
-      <%- grid %>
-    </main>
-    <% include ../partials/footer %>
-  </body>
-</html>
+<main>
+  <h1><%= title %> Vehicles</h1>
+  <%- grid %>
+</main>
