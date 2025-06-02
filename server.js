@@ -31,8 +31,12 @@ app.use((req, res) => {
 // 500 handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).render('errors/500', { title: '500 — Server Error' });
+  res.status(500).render('errors/500', {
+    title: '500 — Server Error',
+    error: err    // Pass error for details (optional)
+  });
 });
+
 
 // Server start
 const host = process.env.HOST || 'localhost';

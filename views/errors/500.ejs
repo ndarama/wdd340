@@ -1,5 +1,37 @@
-<main class="error-page">
-  <h1>500 — Server Error</h1>
-  <p>Oops! Something went wrong on our end.</p>
-  <a href="/">← Back to Home</a>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 3rem; }
+    .error-container {
+      max-width: 500px;
+      margin: 3rem auto;
+      padding: 2.5rem 1.5rem;
+      background: #fff3f2;
+      border: 2px solid #d9534f;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(217,83,79,0.07);
+    }
+    h1 { color: #d9534f; }
+    p { color: #222; font-size: 1.1rem; }
+    a { color: #005A9C; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1>500 &mdash; Server Error</h1>
+    <p>Oops! Something went wrong on our end.</p>
+    <p>
+      Please try again later or return to the <a href="/">home page</a>.
+    </p>
+    <% if (error) { %>
+      <details style="margin-top: 1.5rem; color: #a94442;">
+        <summary>Show technical details</summary>
+        <pre><%= error.message %></pre>
+      </details>
+    <% } %>
+  </div>
+</body>
+</html>

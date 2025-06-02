@@ -56,7 +56,7 @@ function buildVehicleDetailHTML(vehicle) {
         </div>
         <div class="vehicle-right-col">
           <h2 class="vehicle-title">${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
-          <div class="vehicle-price">$${price}</div>
+          <div class="vehicle-price">${price}</div>
           <ul class="vehicle-specs">
             <li><strong>Mileage:</strong> ${miles} miles</li>
             <li><strong>Color:</strong> ${vehicle.inv_color}</li>
