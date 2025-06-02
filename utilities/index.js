@@ -29,7 +29,7 @@ function buildVehicleDetailHTML(vehicle) {
     ? vehicle.inv_image
     : `/images/vehicles/${vehicle.inv_image || 'default.jpg'}`;
 
-  // Simulate multiple thumbnails for demo. Replace or loop real ones!
+  // Simulate multiple thumbnails 
   const thumbs = [
     vehicle.inv_thumbnail1 || imagePath,
     vehicle.inv_thumbnail2 || imagePath,
@@ -77,8 +77,6 @@ function buildVehicleDetailHTML(vehicle) {
     </section>
   `;
 }
-
-
 
 
 // Build vehicle grid (used for classification view)

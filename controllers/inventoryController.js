@@ -1,4 +1,3 @@
-// controllers/inventoryController.js
 const inventoryModel = require('../models/inventory-model');
 const {
   buildVehicleDetailHTML,
@@ -6,7 +5,7 @@ const {
 } = require('../utilities');
 
 /**
- * Render the main inventory overview (if used)
+ * Render all inventory vehicles
  */
 async function viewAllInventory(req, res, next) {
   try {

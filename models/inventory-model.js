@@ -21,7 +21,7 @@ async function getInventoryByClassificationName(name) {
   return result.rows;
 }
 
-// Get classifications (for navigation)
+// Get classifications list
 async function getClassifications() {
   const result = await pool.query('SELECT * FROM classification ORDER BY classification_name');
   return result.rows;

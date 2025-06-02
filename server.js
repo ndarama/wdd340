@@ -6,7 +6,7 @@ const path = require('path');
 // Routers
 const staticRouter = require('./routes/static');
 const indexRouter = require('./routes/index');
-const inventoryRouter = require('./routes/inventory'); // ✅ Inventory route included
+const inventoryRouter = require('./routes/inventory'); 
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render('errors/500', {
     title: '500 — Server Error',
-    error: err    // Pass error for details (optional)
+    error: err    // Pass error for detail
   });
 });
 
