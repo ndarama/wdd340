@@ -4,7 +4,7 @@
   <h1>Vehicle Management</h1>
 <% } %>
 
-<% if (messages.notice) { %>
+<% if (messages.notice && (messages.notice.includes('was successfully added'))) { %>
   <p class="notice"><%= messages.notice %></p>
 <% } %>
 

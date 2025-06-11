@@ -45,7 +45,8 @@ async function buildManagement(req, res, next) {
     res.render('inventory/management', {
       title: 'Vehicle Management',
       nav,
-      errors: null
+      errors: null,
+      messages: {}
     });
   } catch (err) {
     next(err);
@@ -75,12 +76,14 @@ async function addClassification(req, res, next) {
     const result = await invModel.addClassification(classification_name);
     
     if (result.rows) {
-      req.flash('notice', `The ${classification_name} classification was successfully added.`);
       const nav = await utilities.getNav(); // Rebuild nav with new classification
       res.render('inventory/management', {
         title: 'Vehicle Management',
         nav,
-        errors: null
+        errors: null,
+        messages: {
+          notice: `The ${classification_name} classification was successfully added.`
+        }
       });
     } else {
       req.flash('notice', 'Sorry, the classification could not be added.');
@@ -137,12 +140,14 @@ async function addInventory(req, res, next) {
     );
     
     if (result.rows) {
-      req.flash('notice', `The ${inv_make} ${inv_model} was successfully added.`);
       const nav = await utilities.getNav();
       res.render('inventory/management', {
         title: 'Vehicle Management',
         nav,
-        errors: null
+        errors: null,
+        messages: {
+          notice: `The ${inv_make} ${inv_model} was successfully added.`
+        }
       });
     } else {
       req.flash('notice', 'Sorry, the vehicle could not be added.');
