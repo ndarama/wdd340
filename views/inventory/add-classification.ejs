@@ -1,0 +1,72 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Add New Classification</h1>
+<% } %>
+
+<% if (messages.notice) { %>
+  <p class="notice"><%= messages.notice %></p>
+<% } %>
+
+<% if (messages.error) { %>
+  <p class="error"><%= messages.error %></p>
+<% } %>
+
+<% if (messages.errors) { %>
+  <ul class="errors">
+    <% messages.errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/add-classification" method="post" id="addClassificationForm">
+  <fieldset>
+    <legend>Add Classification</legend>
+    
+    <label for="classification_name">Classification Name:</label>
+    <input type="text"
+           id="classification_name"
+           name="classification_name"
+           required
+           pattern="^[a-zA-Z0-9]+$"
+           title="Classification name cannot contain spaces or special characters"
+           value="<%= locals.classification_name || '' %>"
+           placeholder="Enter classification name">
+    <p class="form-help">* Classification name cannot contain spaces or special characters</p>
+    
+    <input type="submit" value="Add Classification" class="submit-btn">
+  </fieldset>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('addClassificationForm');
+  const classificationInput = document.getElementById('classification_name');
+  
+  form.addEventListener('submit', function(e) {
+    const value = classificationInput.value.trim();
+    
+    if (!value) {
+      e.preventDefault();
+      alert('Classification name is required.');
+      return false;
+    }
+    
+    if (!/^[a-zA-Z0-9]+$/.test(value)) {
+      e.preventDefault();
+      alert('Classification name cannot contain spaces or special characters.');
+      return false;
+    }
+  });
+  
+  classificationInput.addEventListener('input', function() {
+    const value = this.value;
+    if (!/^[a-zA-Z0-9]*$/.test(value)) {
+      this.setCustomValidity('Classification name cannot contain spaces or special characters.');
+    } else {
+      this.setCustomValidity('');
+    }
+  });
+});
+</script>

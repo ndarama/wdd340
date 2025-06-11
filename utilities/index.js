@@ -102,8 +102,35 @@ function buildClassificationGrid(data) {
   return grid;
 }
 
+// Build classification select list
+async function buildClassificationList(classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
+
+// Handle errors
+function handleErrors(fn) {
+  return (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+}
+
 module.exports = {
   getNav,
   buildVehicleDetailHTML,
-  buildClassificationGrid
+  buildClassificationGrid,
+  buildClassificationList,
+  handleErrors
 };

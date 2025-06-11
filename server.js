@@ -1,12 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session');
+const flash = require('connect-flash');
 const path = require('path');
 
 // Routers
 const staticRouter = require('./routes/static');
 const indexRouter = require('./routes/index');
-const inventoryRouter = require('./routes/inventory'); 
+const inventoryRouter = require('./routes/inventory');
 
 const app = express();
 
@@ -14,6 +16,27 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', './layouts/layout');
+
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// Flash messages
+app.use(flash());
+
+// Make flash messages available to all views
+app.use((req, res, next) => {
+  res.locals.messages = req.flash();
+  next();
+});
+
+// Body parsing middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));

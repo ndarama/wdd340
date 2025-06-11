@@ -1,0 +1,193 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Add New Vehicle</h1>
+<% } %>
+
+<% if (messages.notice) { %>
+  <p class="notice"><%= messages.notice %></p>
+<% } %>
+
+<% if (messages.error) { %>
+  <p class="error"><%= messages.error %></p>
+<% } %>
+
+<% if (messages.errors) { %>
+  <ul class="errors">
+    <% messages.errors.forEach(function(error) { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/add-inventory" method="post" id="addInventoryForm">
+  <fieldset>
+    <legend>Add Vehicle</legend>
+    
+    <label for="classificationList">Classification:</label>
+    <%- classificationList %>
+    
+    <label for="inv_make">Make:</label>
+    <input type="text" 
+           id="inv_make" 
+           name="inv_make" 
+           required 
+           minlength="3"
+           value="<%= locals.inv_make || '' %>"
+           placeholder="Enter vehicle make">
+    
+    <label for="inv_model">Model:</label>
+    <input type="text" 
+           id="inv_model" 
+           name="inv_model" 
+           required 
+           minlength="3"
+           value="<%= locals.inv_model || '' %>"
+           placeholder="Enter vehicle model">
+    
+    <label for="inv_year">Year:</label>
+    <input type="number" 
+           id="inv_year" 
+           name="inv_year" 
+           required 
+           min="1900" 
+           max="<%= new Date().getFullYear() + 1 %>"
+           value="<%= locals.inv_year || '' %>"
+           placeholder="Enter vehicle year">
+    
+    <label for="inv_description">Description:</label>
+    <textarea id="inv_description" 
+              name="inv_description" 
+              required 
+              rows="4" 
+              placeholder="Enter vehicle description"><%= locals.inv_description || '' %></textarea>
+    
+    <label for="inv_image">Image Path:</label>
+    <input type="text" 
+           id="inv_image" 
+           name="inv_image" 
+           required 
+           value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>"
+           placeholder="/images/vehicles/no-image.png">
+    
+    <label for="inv_thumbnail">Thumbnail Path:</label>
+    <input type="text" 
+           id="inv_thumbnail" 
+           name="inv_thumbnail" 
+           required 
+           value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>"
+           placeholder="/images/vehicles/no-image-tn.png">
+    
+    <label for="inv_price">Price:</label>
+    <input type="number" 
+           id="inv_price" 
+           name="inv_price" 
+           required 
+           min="0" 
+           step="0.01"
+           value="<%= locals.inv_price || '' %>"
+           placeholder="Enter vehicle price">
+    
+    <label for="inv_miles">Miles:</label>
+    <input type="number" 
+           id="inv_miles" 
+           name="inv_miles" 
+           required 
+           min="0"
+           value="<%= locals.inv_miles || '' %>"
+           placeholder="Enter vehicle mileage">
+    
+    <label for="inv_color">Color:</label>
+    <input type="text" 
+           id="inv_color" 
+           name="inv_color" 
+           required 
+           value="<%= locals.inv_color || '' %>"
+           placeholder="Enter vehicle color">
+    
+    <input type="submit" value="Add Vehicle" class="submit-btn">
+  </fieldset>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('addInventoryForm');
+  
+  form.addEventListener('submit', function(e) {
+    const classification = document.getElementById('classificationList').value;
+    const make = document.getElementById('inv_make').value.trim();
+    const model = document.getElementById('inv_model').value.trim();
+    const year = document.getElementById('inv_year').value;
+    const description = document.getElementById('inv_description').value.trim();
+    const image = document.getElementById('inv_image').value.trim();
+    const thumbnail = document.getElementById('inv_thumbnail').value.trim();
+    const price = document.getElementById('inv_price').value;
+    const miles = document.getElementById('inv_miles').value;
+    const color = document.getElementById('inv_color').value.trim();
+    
+    let errors = [];
+    
+    if (!classification) errors.push('Please select a classification.');
+    if (!make || make.length < 3) errors.push('Make must be at least 3 characters long.');
+    if (!model || model.length < 3) errors.push('Model must be at least 3 characters long.');
+    if (!year || year < 1900 || year > new Date().getFullYear() + 1) errors.push('Please enter a valid year.');
+    if (!description) errors.push('Description is required.');
+    if (!image) errors.push('Image path is required.');
+    if (!thumbnail) errors.push('Thumbnail path is required.');
+    if (!price || price < 0) errors.push('Please enter a valid price.');
+    if (!miles || miles < 0) errors.push('Please enter valid mileage.');
+    if (!color) errors.push('Color is required.');
+    
+    if (errors.length > 0) {
+      e.preventDefault();
+      alert('Please fix the following errors:\n' + errors.join('\n'));
+      return false;
+    }
+  });
+  
+  // Real-time validation
+  const inputs = form.querySelectorAll('input, select, textarea');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      validateField(this);
+    });
+  });
+  
+  function validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
+    let message = '';
+    
+    switch(field.name) {
+      case 'inv_make':
+      case 'inv_model':
+        if (!value || value.length < 3) {
+          isValid = false;
+          message = field.name.replace('inv_', '').charAt(0).toUpperCase() + field.name.replace('inv_', '').slice(1) + ' must be at least 3 characters long.';
+        }
+        break;
+      case 'inv_year':
+        const year = parseInt(value);
+        if (!year || year < 1900 || year > new Date().getFullYear() + 1) {
+          isValid = false;
+          message = 'Please enter a valid year.';
+        }
+        break;
+      case 'inv_price':
+        if (!value || parseFloat(value) < 0) {
+          isValid = false;
+          message = 'Please enter a valid price.';
+        }
+        break;
+      case 'inv_miles':
+        if (!value || parseInt(value) < 0) {
+          isValid = false;
+          message = 'Please enter valid mileage.';
+        }
+        break;
+    }
+    
+    field.setCustomValidity(isValid ? '' : message);
+  }
+});
+</script>
