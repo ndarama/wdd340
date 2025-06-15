@@ -1,3 +1,3 @@
 UPDATE account
-SET account_type = 'Admin'
-WHERE account_email = 'ndaramartwork@gmail.com';
+SET account_type = 'Employee'
+WHERE account_email = 'aline.keza@gmail.com';
