@@ -1,0 +1,37 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<% if (messages) { %>
+    <div class="flash-messages">
+        <% Object.keys(messages).forEach(key => { %>
+            <% messages[key].forEach(message => { %>
+                <p class="flash-<%= key %>"><%= message %></p>
+            <% }) %>
+        <% }) %>
+    </div>
+<% } %>
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+<% } %>
+
+<form id="loginForm" action="/account/login" method="post">
+    <fieldset>
+        <label for="account_email">Email:</label>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+
+        <label for="account_password">Password:</label>
+        <input type="password" id="account_password" name="account_password" required>
+
+        <button type="submit">Login</button>
+    </fieldset>
+</form>
+
+<p>No account? <a href="/account/register">Register here</a>.</p>

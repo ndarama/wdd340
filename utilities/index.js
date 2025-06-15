@@ -1,4 +1,6 @@
 const invModel = require('../models/inventory-model');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // Build site navigation
 async function getNav() {
@@ -127,10 +129,53 @@ function handleErrors(fn) {
   return (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 }
 
+/* ****************************************
+*  Check JWT token
+* ************************************ */
+function checkJWT(req, res, next) {
+ if (req.cookies.jwt) {
+  jwt.verify(
+   req.cookies.jwt,
+   process.env.ACCESS_TOKEN_SECRET,
+   function (err, accountData) {
+    if (err) {
+     req.flash("Please log in")
+     res.clearCookie("jwt")
+     return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedIn = 1
+    next()
+   })
+ } else {
+  next()
+ }
+}
+
+/* ****************************************
+*  Check for authorization
+* ************************************ */
+const checkAuthorization = (req, res, next) => {
+ if (res.locals.loggedin) {
+   const accountType = res.locals.accountData.account_type;
+   if (accountType === 'Employee' || accountType === 'Admin') {
+     next();
+   } else {
+     req.flash('notice', 'You are not authorized to view this page.');
+     res.redirect('/account/login');
+   }
+ } else {
+   req.flash('notice', 'Please log in to access this page.');
+   res.redirect('/account/login');
+ }
+};
+
 module.exports = {
   getNav,
   buildVehicleDetailHTML,
   buildClassificationGrid,
   buildClassificationList,
-  handleErrors
+  handleErrors,
+  checkJWT,
+  checkAuthorization
 };

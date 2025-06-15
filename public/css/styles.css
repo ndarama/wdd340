@@ -607,9 +607,12 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="password"],
 input[type="number"],
 select,
 textarea {
+  width: 100%;
   padding: 0.75rem;
   border: 2px solid #ddd;
   border-radius: 4px;
@@ -753,4 +756,31 @@ textarea {
     padding: 0.625rem;
     font-size: 0.95rem;
   }
+}
+
+/* Account Update Page Styles */
+.account-update-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 767px) {
+    .account-update-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-container {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--blue);
 }
