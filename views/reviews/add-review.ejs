@@ -1,0 +1,163 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  return res.redirect('/');
+} %>
+
+<% if (messages) { %>
+  <div class="flash-messages">
+    <% Object.keys(messages).forEach(key => { %>
+      <% messages[key].forEach(message => { %>
+        <p class="flash-<%= key %>"><%= message %></p>
+      <% }) %>
+    <% }) %>
+  </div>
+<% } %>
+
+<div class="review-form-container">
+  <div class="vehicle-summary">
+    <img src="<%= inv_image %>"
+         alt="<%= inv_make %> <%= inv_model %>"
+         class="vehicle-thumbnail">
+    <h2><%= inv_year %> <%= inv_make %> <%= inv_model %></h2>
+  </div>
+
+  <form action="/reviews/add" method="post" class="review-form">
+    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+    <fieldset>
+      <legend>Your Review</legend>
+
+      <div class="form-group">
+        <label for="review_rating">Rating:</label>
+        <div class="star-rating">
+          <% for (let i = 5; i >= 1; i--) { %>
+            <input type="radio"
+                   id="star<%= i %>"
+                   name="review_rating"
+                   value="<%= i %>"
+                   required
+                   <%= i === 5 ? 'checked' : '' %> >
+            <label for="star<%= i %>" title="<%= i %> stars">★</label>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="review_text">Review:</label>
+        <textarea id="review_text"
+                  name="review_text"
+                  required
+                  minlength="10"
+                  maxlength="200"
+                  rows="6"
+                  placeholder="Share your experience with this vehicle..."><%= review_text || '' %></textarea>
+        <div class="char-count"><span id="charCount">0</span>/200 characters</div>
+      </div>
+
+      <% if (errors) { %>
+        <ul class="errors">
+          <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <div class="form-group">
+        <button type="submit" class="submit-btn">Submit Review</button>
+        <a href="/inv/detail/<%= inv_id %>" class="btn-cancel">Cancel</a>
+      </div>
+    </fieldset>
+
+    <% if (locals.csrfToken) { %>
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <% } %>
+  </form>
+</div>
+
+<script src="/js/review.js"></script>
+
+<style>
+.review-form-container {
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.vehicle-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 6px;
+  border-left: 4px solid #005A9C;
+}
+
+.vehicle-thumbnail {
+  width: 100px;
+  height: auto;
+  margin-right: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #ddd;
+  margin-right: 0.25rem;
+  transition: color 0.2s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: #005A9C;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.btn-cancel {
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0.875rem 2rem;
+  background: #e0e0e0;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-cancel:hover {
+  background: #d5d5d5;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .vehicle-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .vehicle-thumbnail {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+</style>

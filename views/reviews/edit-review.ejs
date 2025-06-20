@@ -1,0 +1,77 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  return res.redirect('/');
+} %>
+
+<% if (messages) { %>
+  <div class="flash-messages">
+    <% Object.keys(messages).forEach(key => { %>
+      <% messages[key].forEach(message => { %>
+        <p class="flash-<%= key %>"><%= message %></p>
+      <% }) %>
+    <% }) %>
+  </div>
+<% } %>
+
+<div class="review-form-container">
+  <div class="vehicle-summary">
+    <h2><%= inv_year %> <%= inv_make %> <%= inv_model %></h2>
+    <p class="edit-notice">You are editing your review for this vehicle.</p>
+  </div>
+
+  <form action="/reviews/edit" method="post" class="review-form">
+    <input type="hidden" name="review_id" value="<%= review_id %>">
+    <input type="hidden" name="inv_id"     value="<%= inv_id     %>">
+
+    <fieldset>
+      <legend>Edit Your Review</legend>
+
+      <div class="form-group">
+        <label for="review_rating">Rating:</label>
+        <div class="star-rating">
+          <% for(let i = 5; i >= 1; i--) { %>
+            <input
+              type="radio"
+              id="star<%= i %>"
+              name="review_rating"
+              value="<%= i %>"
+              required
+              <%= i === parseInt(review_rating) ? 'checked' : '' %>
+            >
+            <label for="star<%= i %>" title="<%= i %> stars">★</label>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="review_text">Review:</label>
+        <textarea
+          id="review_text"
+          name="review_text"
+          required
+          minlength="10"
+          maxlength="200"
+          rows="6"
+        ><%= review_text %></textarea>
+        <div class="char-count"><span id="charCount"><%= review_text.length %></span>/200 characters</div>
+      </div>
+
+      <% if (errors) { %>
+        <ul class="errors">
+          <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </fieldset>
+
+    <div class="form-group">
+      <button type="submit" class="submit-btn">Update Review</button>
+      <!-- Cancel goes back to vehicle detail, not account/reviews -->
+      <a href="/inv/detail/<%= inv_id %>" class="btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script src="/js/review.js"></script>

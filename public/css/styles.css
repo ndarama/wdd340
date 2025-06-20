@@ -1,19 +1,16 @@
-/* public/css/styles.css */
-
-/* 1) Variables & Reset */
 :root {
   /* Blue Palette */
-  --blue:        #005A9C;   /* Primary blue (7.3:1 on white) */
-  --blue-dark:   #003366;   /* Darker blue for hover */
+  --blue:        #005A9C;
+  --blue-dark:   #003366;
 
   /* Text & backgrounds */
-  --text:        #222222;   /* Body text */
-  --page-bg:     #F5F5F5;   /* Light page background */
-  --bg:           #FFFFFF;  /* White wrapper/content background */
+  --text:        #222222;
+  --page-bg:     #F5F5F5;
+  --bg:           #FFFFFF;
 
   /* Navigation */
-  --nav-bg:      #333333;   /* Dark nav background */
-  --nav-hover:   #FFFFFF;   /* Hover/focus color on nav links */
+  --nav-bg:      #333333;
+  --nav-hover:   #FFFFFF;
 
   /* Typography */
   --font-sans:   'Inter', sans-serif;
@@ -25,7 +22,7 @@
   box-sizing: border-box;
 }
 
-/* 2) Page & Checkerboard (dev accent) */
+
 body {
   background-color: var(--page-bg);
   background-image:
@@ -35,13 +32,12 @@ body {
     linear-gradient(-45deg, transparent 75%, #000 75%);
   background-size: 40px 40px;
   background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
-
   font-family: var(--font-sans);
   color: var(--text);
   line-height: 1.5;
 }
 
-/* 3) Wrapper */
+
 #wrapper {
   width: 90%;
   max-width: 1000px;
@@ -53,7 +49,7 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* 4) Header & Account Link */
+
 header {
   display: flex;
   flex-wrap: wrap;
@@ -77,7 +73,7 @@ header {
   margin-top: 0.5rem;
 }
 
-/* 5) Navigation */
+
 nav {
   background: var(--nav-bg);
   box-shadow: inset 0 -4px 0 var(--blue);
@@ -113,7 +109,7 @@ nav a:focus {
   outline: none;
 }
 
-/* Stack nav on very small screens */
+
 @media (max-width: 480px) {
   nav ul {
     flex-direction: column;
@@ -124,7 +120,7 @@ nav a:focus {
   }
 }
 
-/* 6) Main Content */
+
 main {
   padding: 1.5rem;
   background: var(--bg);
@@ -135,7 +131,7 @@ main > h1 {
   margin-bottom: 1.5rem;
 }
 
-/* Hero Section */
+
 .hero {
   text-align: center;
   margin-bottom: 2rem;
@@ -148,7 +144,7 @@ main > h1 {
   margin: 0 auto 1rem;
 }
 
-/* Side-by-side hero on tablets+ */
+
 @media (min-width: 768px) {
   .hero {
     display: flex;
@@ -182,7 +178,7 @@ main > h1 {
   margin-bottom: 0.4rem;
 }
 
-/* 7) Primary Button */
+
 .btn-primary {
   display: inline-block;
   padding: 0.6rem 1.4rem;
@@ -199,7 +195,7 @@ main > h1 {
   background: var(--blue-dark);
 }
 
-/* 8) Upgrades & Reviews */
+
 .upgrades,
 .reviews {
   margin-bottom: 2rem;
@@ -213,7 +209,7 @@ main > h1 {
   text-align: center;
 }
 
-/* Upgrades Grid */
+
 .upgrades-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -238,29 +234,24 @@ main > h1 {
   font-size: clamp(0.8rem, 3vw, 0.9rem);
 }
 
-/* Reviews List */
+
 .reviews-list {
-  list-style: none;
-  padding-left: 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  width: 100%;
 }
 
-.reviews-list li {
-  margin-bottom: 0.6rem;
-  font-style: italic;
-  font-size: clamp(0.9rem, 3vw, 1rem);
-}
-
-/* 9) Footer */
-footer {
-  background: #f0f0f0;
+.no-reviews {
+  background: #f8f8f8;
+  padding: 2rem;
   text-align: center;
-  padding: 1rem;
-  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+  border-radius: 6px;
+  font-style: italic;
   color: #666;
 }
 
-/* 10) Desktop grid (≥1024px) */
-@media screen and (min-width: 1024px) {
+@media (min-width: 1024px) {
   main {
     display: grid;
     grid-template-areas:
@@ -277,21 +268,34 @@ footer {
   .upgrades  { grid-area: upgrades; }
   .reviews   { grid-area: reviews; }
   footer     { grid-area: footer; }
+
+  .vehicle-reviews {
+    grid-column: 1 / -1; /* span both columns */
+  }
 }
 
-
+footer {
+  margin: 0 auto;
+}
 /* Style Vehicle Detail Page */
+
+.vehicle-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  clear: both;
+  display: block;
+}
 
 .vehicle-beauty {
   max-width: 1250px;
-  margin: 3rem auto 2.5rem auto;
   padding: 0;
-  background: none;     
-  border-radius: 0;     
-  box-shadow: none;     
-  border: none;         
-  margin: 2rem auto 2rem auto;
-
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  margin: 2rem auto 1rem auto;
+  overflow: hidden;
 }
 
 .vehicle-detail-split {
@@ -300,6 +304,8 @@ footer {
   gap: 2.5rem;
   align-items: stretch;
   width: 100%;
+  margin-bottom: 2rem;
+  clear: both;
 }
 
 .vehicle-gallery {
@@ -544,14 +550,18 @@ footer {
     gap: 3.5rem;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
+    clear: both;
   }
   .vehicle-gallery {
-    align-items: flex-end;
-    text-align: right;
+    flex: 1;
+    align-items: center;
+    text-align: center;
     margin-right: 2rem;
   }
   .vehicle-right-col {
+    flex: 1;
     align-items: flex-start;
     min-width: 340px;
     margin-left: 1rem;
@@ -784,3 +794,664 @@ textarea {
     font-size: 1.5rem;
     color: var(--blue);
 }
+
+/* 12) Review System Styles */
+
+/* Review Container & Items */
+.reviews-container {
+  background: var(--bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Desktop styling for reviews container */
+@media (min-width: 900px) {
+  .reviews-container {
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+}
+
+.reviews-container h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+}
+
+/* Desktop styling for reviews heading */
+@media (min-width: 900px) {
+  .reviews-container h2 {
+    font-size: 1.75rem;
+    text-align: left;
+  }
+}
+
+.vehicle-reviews {
+  max-width: 1000px;
+  margin: 2rem auto 3rem auto;
+  padding: 0 1.5rem;
+  clear: both;
+  display: block;
+  width: 100%;
+  float: none;
+}
+
+/* Desktop styling for vehicle reviews */
+@media (min-width: 900px) {
+  .vehicle-reviews {
+    max-width: 1200px;
+    margin: 3rem auto 4rem auto;
+    clear: both;
+    display: block;
+    width: 100%;
+    float: none;
+  }
+}
+
+.reviews-list {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+/* Desktop styling for reviews list */
+@media (min-width: 900px) {
+  .reviews-list {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}
+
+.review-item {
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding: 1.5rem;
+  border-left: 3px solid var(--blue);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Desktop styling for review items */
+@media (min-width: 900px) {
+  .review-item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .review-content {
+    flex: 1;
+  }
+}
+
+.review-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Ensure proper layout in desktop view */
+@media (min-width: 900px) {
+  .review-header {
+    flex-wrap: nowrap;
+  }
+}
+
+.review-author {
+  font-size: 1.1rem;
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.review-content {
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.review-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-review-action {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #e0e0e0;
+  color: #333;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-review-action:hover {
+  background: #d5d5d5;
+  transform: translateY(-1px);
+}
+
+.btn-review-action:active {
+  transform: translateY(0);
+}
+
+.btn-review-action.delete {
+  background: #fff0f0;
+  color: #dc3545;
+  border: 1px solid #ffccd1;
+}
+
+.btn-review-action.delete:hover {
+  background: #ffe0e0;
+}
+
+/* Star Rating Display */
+.review-rating {
+  margin-left: auto;
+}
+
+/* Ensure proper alignment in desktop view */
+@media (min-width: 900px) {
+  .review-rating {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.star {
+  font-size: 1.25rem;
+  color: #ddd;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: var(--blue);
+}
+
+/* Reviews Summary */
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 6px;
+}
+
+/* Desktop styling for reviews summary */
+@media (min-width: 900px) {
+  .reviews-summary {
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+}
+
+.average-rating {
+  margin-right: 1.5rem;
+}
+
+.rating-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.rating-max {
+  font-size: 1.25rem;
+  color: #666;
+}
+
+.rating-count {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* No Reviews State */
+.no-reviews {
+  background: #f8f8f8;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 6px;
+  font-style: italic;
+  color: #666;
+}
+
+/* Desktop styling for no-reviews message */
+@media (min-width: 900px) {
+  .no-reviews {
+    padding: 3rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Add Review Button */
+.add-review-button, .login-to-review {
+  margin-bottom: 2rem;
+  text-align: right;
+}
+
+/* Ensure consistent alignment in desktop view */
+@media (min-width: 900px) {
+  .add-review-button, .login-to-review {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.login-to-review a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-to-review a:hover {
+  text-decoration: underline;
+}
+
+/* Review Form Styles */
+.review-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.vehicle-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 6px;
+  border-left: 4px solid var(--blue);
+}
+
+.vehicle-thumbnail {
+  width: 100px;
+  height: auto;
+  margin-right: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.edit-notice {
+  color: #666;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Star Rating Input */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #ddd;
+  margin-right: 0.25rem;
+  transition: color 0.2s;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+  color: var(--blue);
+}
+
+/* Cancel Button */
+.btn-cancel {
+  display: inline-block;
+  margin-left: 1rem;
+  padding: 0.875rem 2rem;
+  background: #e0e0e0;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-cancel:hover {
+  background: #d5d5d5;
+  transform: translateY(-1px);
+}
+
+.btn-cancel:active {
+  transform: translateY(0);
+}
+
+/* Delete Confirmation */
+.delete-confirm-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.warning-box {
+  background: #fff8f8;
+  border-left: 4px solid #dc3545;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+}
+
+.warning-box h2 {
+  color: #dc3545;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.warning-text {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.review-preview {
+  background: #f8f8f8;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+}
+
+.review-preview h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.delete-btn {
+  padding: 0.875rem 2rem;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.delete-btn:active {
+  transform: translateY(0);
+}
+
+/* User Reviews Page */
+.user-reviews-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.user-reviews-header {
+  margin-bottom: 2rem;
+}
+
+.user-reviews-header h2 {
+  font-size: 1.5rem;
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+}
+
+.user-reviews-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.user-review-card {
+  background: var(--bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.user-review-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.vehicle-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.vehicle-info h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--text);
+}
+
+.btn-review {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: #e0e0e0;
+  color: #333;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-review:hover {
+  background: #d5d5d5;
+  transform: translateY(-1px);
+}
+
+.btn-review:active {
+  transform: translateY(0);
+}
+
+.btn-review.delete {
+  background: #fff0f0;
+  color: #dc3545;
+  border: 1px solid #ffccd1;
+}
+
+.btn-review.delete:hover {
+  background: #ffe0e0;
+}
+
+.btn-review.view {
+  background: #f0f8ff;
+  color: var(--blue);
+  border: 1px solid #cce5ff;
+}
+
+.btn-review.view:hover {
+  background: #e0f0ff;
+}
+
+.back-link {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--blue);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-back:hover {
+  background: var(--blue-dark);
+  transform: translateY(-1px);
+}
+
+.btn-back:active {
+  transform: translateY(0);
+}
+
+.flash-messages {
+  margin: 1rem auto;
+  max-width: 800px;
+}
+.flash-success, .flash-notice {
+  background: #d4edda;
+  color: #155724;
+  padding: 0.75rem 1rem;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.flash-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem 1rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* ──────────────────────────────────────────────
+   REVIEW FORM PAGES (add / edit / delete) FIX
+─────────────────────────────────────────────── */
+@media screen and (min-width: 1024px) {
+  /* Force these form containers to span both grid columns */
+  .review-form-container,
+  .delete-confirm-container {
+    grid-column: 1 / -1 !important;
+    /* Center and size */
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+
+  /* Optional: give them a little pop-out style */
+  .review-form-container,
+  .delete-confirm-container {
+    background: var(--bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .reviews-container {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .review-rating {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .add-review-button, .login-to-review {
+    text-align: center;
+  }
+  
+  .vehicle-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .vehicle-thumbnail {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .vehicle-info {
+    flex-direction: column;
+  }
+  
+  .review-date {
+    margin-top: 0.5rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .delete-btn, .cancel-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .star {
+    font-size: 1.1rem;
+  }
+  
+  .star-rating label {
+    font-size: 1.75rem;
+  }
+  
+  .reviews-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .average-rating {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-actions,
+  .btn-review {
+    font-size: 0.85rem;
+  }
+}
+
+/* ────────────────────────────────
+   FIX: Keep the footer centered
+───────────────────────────────── */
+@media screen and (min-width: 1024px) {
+  /* undo any grid‐area you’ve picked up */
+  footer {
+    grid-area: auto !important;
+    width: 100%;
+    margin: 0 auto;
+    /* text-align is already center from your base rules */
+  }
+}
+

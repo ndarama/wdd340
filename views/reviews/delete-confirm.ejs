@@ -1,0 +1,51 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  return res.redirect('/');
+} %>
+
+<% if (messages) { %>
+  <div class="flash-messages">
+    <% Object.keys(messages).forEach(key => { %>
+      <% messages[key].forEach(message => { %>
+        <p class="flash-<%= key %>"><%= message %></p>
+      <% }) %>
+    <% }) %>
+  </div>
+<% } %>
+
+<div class="delete-confirm-container">
+  <div class="warning-box">
+    <h2>Confirm Deletion</h2>
+    <p class="warning-text">
+      Are you sure you want to delete your review for the
+      <%= inv_year %> <%= inv_make %> <%= inv_model %>?
+    </p>
+    <p class="warning-text">This action cannot be undone.</p>
+  </div>
+
+  <div class="review-preview">
+    <h3>Review to be deleted:</h3>
+    <div class="review-rating">
+      <% for(let i = 1; i <= 5; i++) { %>
+        <% if (i <= review_rating) { %>
+          <span class="star filled">★</span>
+        <% } else { %>
+          <span class="star">☆</span>
+        <% } %>
+      <% } %>
+    </div>
+    <div class="review-content">
+      <p><%= review_text %></p>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <form action="/reviews/delete" method="post">
+      <input type="hidden" name="review_id" value="<%= review_id %>">
+      <button type="submit" class="delete-btn">Yes, Delete Review</button>
+    </form>
+    <!-- Cancel goes back to vehicle detail, not account/reviews -->
+    <a href="/inv/detail/<%= inv_id %>" class="cancel-btn">Cancel</a>
+  </div>
+</div>

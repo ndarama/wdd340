@@ -1,4 +1,53 @@
-<section class="vehicle-beauty">
-  <%- detailView %>
-</section>
+<main>
+  <!-- Vehicle detail (gallery + sidebar) -->
+  <div class="vehicle-container">
+    <%- detailView %>
+  </div>
 
+  <!-- Reviews below detail -->
+  <section class="vehicle-reviews" id="vehicle-reviews">
+    <div class="reviews-container">
+      <h2>Customer Reviews</h2>
+
+      <% if (accountData) { %>
+        <div class="add-review-button">
+          <a href="/reviews/add/<%= vehicle.inv_id %>" class="btn-primary">
+            Write a Review
+          </a>
+        </div>
+      <% } else { %>
+        <div class="login-to-review">
+          <p>Please <a href="/account/login">log in</a> to write a review.</p>
+        </div>
+      <% } %>
+
+      <% if (reviews && reviews.length > 0) { %>
+        <div class="reviews-summary">
+          <div class="average-rating">
+            <span class="rating-value">
+              <%= (reviews.reduce((sum, r) => sum + r.review_rating, 0)
+                    / reviews.length).toFixed(1) %>
+            </span>
+            <span class="rating-max">/5</span>
+          </div>
+          <div class="rating-count">
+            <span>
+              <%= reviews.length %> 
+              <%= reviews.length === 1 ? 'review' : 'reviews' %>
+            </span>
+          </div>
+        </div>
+
+        <div class="reviews-list">
+          <% reviews.forEach(review => { %>
+            <%- include('../partials/review-item', { review }) %>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="no-reviews">
+          <p>This vehicle has no reviews yet. Be the first to write one!</p>
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>

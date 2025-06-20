@@ -45,3 +45,66 @@ When you installed Git and cloned the remote repository in week 1, you should ha
 1. Go to http://localhost:5500 in a browser tab. Nothing should be visible as the server has not been setup to repond to that route.
 2. Add "/filename.html" to the end of the URL (replacing filename with the name of the file you moved to the public folder).
 3. You should see that page in the browser.
+
+## Vehicle Review System
+
+### Overview
+The Vehicle Review System allows authenticated users to create, read, update, and delete reviews for vehicles in the inventory. This feature enhances user engagement and provides valuable feedback for potential customers.
+
+### Features
+- Star rating system (1-5 stars)
+- Text reviews with character counter and validation
+- User-specific review management
+- Review display on vehicle detail pages
+- Edit and delete functionality for user's own reviews
+
+### New Files Created
+- **Database**
+  - `database/review.sql` - Database schema for the review table
+  - `database/test-reviews.sql` - Sample review data for testing
+
+- **Models**
+  - `models/review-model.js` - Database interaction functions for reviews
+
+- **Controllers**
+  - `controllers/reviewController.js` - Business logic for review operations
+
+- **Routes**
+  - `routes/review-route.js` - API endpoints for review operations
+
+- **Views**
+  - `views/reviews/add-review.ejs` - Form for adding new reviews
+  - `views/reviews/edit-review.ejs` - Form for editing existing reviews
+  - `views/reviews/delete-confirm.ejs` - Confirmation page for review deletion
+  - `views/reviews/user-reviews.ejs` - Page displaying all reviews by the logged-in user
+  - `views/partials/review-item.ejs` - Reusable component for displaying a review
+
+- **Client-side**
+  - `public/js/review.js` - JavaScript for interactive star rating and form validation
+
+- **Utilities**
+  - `utilities/review-validation.js` - Server-side validation for review data
+
+### Testing the Feature
+1. **Load Test Data**:
+   - Run the SQL commands in `database/test-reviews.sql` to populate the database with sample reviews
+
+2. **View Reviews**:
+   - Browse to any vehicle detail page to see existing reviews
+   - Reviews are displayed with star ratings and reviewer information
+
+3. **Add a Review**:
+   - Log in to your account
+   - Navigate to a vehicle detail page
+   - Click "Write a Review" button
+   - Fill out the form with a rating and review text
+   - Submit the form to create your review
+
+4. **Manage Your Reviews**:
+   - Go to the Account Management page
+   - Click "View Your Vehicle Reviews"
+   - From this page, you can view, edit, or delete your reviews
+
+5. **Edit/Delete Reviews**:
+   - On the user reviews page, click "Edit" or "Delete" for any review
+   - Follow the prompts to complete the action

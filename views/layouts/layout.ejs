@@ -3,14 +3,26 @@
 <%- include('../partials/head') %>
 
 <body>
-    <div id="wrapper">
-       <%- include('../partials/header') %>
-       <%- include('../partials/navigation') %>
-     
-       <main>
-        <%- body %>
-       </main>
-       <%- include('../partials/footer') %>
-    </div>
+  <div id="wrapper">
+    <%- include('../partials/header') %>
+    <%- include('../partials/navigation') %>
+
+    <!-- Flash messages (notice, error, etc.) -->
+    <% if (messages && Object.keys(messages).length) { %>
+      <div class="flash-messages">
+        <% Object.keys(messages).forEach(type => { %>
+          <% messages[type].forEach(msg => { %>
+            <div class="flash-<%= type %>"><%= msg %></div>
+          <% }) %>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <main>
+      <%- body %>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </div>
 </body>
 </html>

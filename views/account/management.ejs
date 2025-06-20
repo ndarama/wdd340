@@ -1,27 +1,148 @@
+<% /* views/account/management.ejs */ %>
+
 <% if (title) { %>
-    <h1><%= title %></h1>
-<% } else {
-    res.redirect('/')
-} %>
-
-<% if (messages) { %>
-    <div class="flash-messages">
-        <% Object.keys(messages).forEach(key => { %>
-            <% messages[key].forEach(message => { %>
-                <p class="flash-<%= key %>"><%= message %></p>
-            <% }) %>
-        <% }) %>
-    </div>
+  <h1><%= title %></h1>
 <% } %>
 
-<h2>Welcome <%= locals.accountData.account_firstname %></h2>
+<div class="account-overview">
+  <h2>
+    Welcome, 
+    <strong><%= accountData.account_firstname %> <%= accountData.account_lastname %></strong>
+  </h2>
+  <p>
+    Account Type: <strong><%= accountData.account_type %></strong>
+  </p>
+</div>
 
-<p>You're logged in.</p>
+<div class="account-options">
+  <div class="account-option">
+    <h3>Account Management</h3>
+    <ul>
+      <li>
+        <a href="/account/update/<%= accountData.account_id %>">
+          Update Account Information
+        </a>
+      </li>
+    </ul>
+  </div>
 
-<p><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></p>
+  <div class="account-option">
+    <h3>Your Reviews</h3>
+    <ul>
+      <li><a href="/reviews">View Your Vehicle Reviews</a></li>
+    </ul>
+  </div>
+</div>
 
-<% if (locals.accountData.account_type === 'Employee' || locals.accountData.account_type === 'Admin') { %>
+<% if (accountData.account_type === 'Employee' || accountData.account_type === 'Admin') { %>
+  <div class="inventory-management">
     <h3>Inventory Management</h3>
-    <p>Use the link below to manage inventory.</p>
+    <p>Use the link below to manage inventory:</p>
     <p><a href="/inv/">Manage Inventory</a></p>
+  </div>
 <% } %>
+
+<style>
+  .account-overview {
+    background: #f8f8f8;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  .account-overview h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  .account-overview p {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .account-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .account-option {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .account-option h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #005A9C;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+  }
+  .account-option ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .account-option li {
+    margin-bottom: 0.75rem;
+  }
+  .account-option a {
+    color: #333;
+    text-decoration: none;
+  }
+  .account-option a:hover {
+    color: #005A9C;
+  }
+
+  .inventory-management {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    background: #eef7ff;
+    border-radius: 6px;
+    border-left: 4px solid #005A9C;
+  }
+  .inventory-management h3 {
+    margin-top: 0;
+    color: #005A9C;
+  }
+  .inventory-management p {
+    margin: 0.5rem 0;
+  }
+  .inventory-management a {
+    color: #005A9C;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .inventory-management a:hover {
+    text-decoration: underline;
+  }
+
+  /* Flash message styles */
+  .flash-messages {
+    margin-bottom: 1.5rem;
+  }
+  .flash-notice, .flash-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 0.75rem 1rem;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .flash-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 0.75rem 1rem;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .account-options {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
