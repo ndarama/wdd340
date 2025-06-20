@@ -571,7 +571,7 @@ footer {
   }
 }
 
-/* 11) Form Styling */
+/*  Form Styling */
 form {
   max-width: 800px;
   margin: 0 auto;
@@ -725,6 +725,20 @@ textarea {
 
 .errors li {
   margin-bottom: 0.25rem;
+}
+
+/* ──────────────────────────────────────────────
+   Always center the footer’s content
+─────────────────────────────────────────────── */
+#wrapper footer {
+  /* make sure it’s full-width in the wrapper */
+  width: 100%;
+  /* center all text & inline items */
+  text-align: center !important;
+  /* if you want the “Cause a Server Error” link on its own line */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Responsive Form Layout */
